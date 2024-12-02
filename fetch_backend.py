@@ -193,4 +193,4 @@ def create_app(database_path: str = 'app.db') -> web.Application:
 
 
 if __name__ == '__main__':
-    web.run_app(create_app())
+    web.run_app(create_app(), port=8000)
