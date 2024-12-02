@@ -23,10 +23,10 @@ the app, you can just install `requirements.txt`.
 
 ```sh
 # Windows
-py -m pip install requirements/requirements-test.txt
+py -m pip install -r requirements/requirements-test.txt
 
 # MacOS/Linux
-python3 -m pip install requirements/requirements-test.txt
+python3 -m pip install -r requirements/requirements-test.txt
 ```
 
 ## Running
