@@ -1,0 +1,42 @@
+# Adapted from one of my other projects:
+# https://github.com/Fyssion/zupplin/blob/main/.github/workflows/helium_lint.yml
+
+name: "lint"
+
+on:
+  push:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install hatch
+        run: |
+          pip install hatch
+          hatch config set dirs.env.virtual .hatch
+
+      - name: Install dependencies
+        run: |
+          hatch env create test
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # the pyright action doesn't like hatch's venv, and I'm too lazy to figure out why
+      - name: Install pyright
+        run: npm i -g pyright@1.1.274
+
+      - name: Test with pyright
+        run: hatch run test:lint

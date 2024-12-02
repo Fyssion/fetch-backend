@@ -1,0 +1,114 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fetch-backend"
+dynamic = ["version"]
+description = 'Fetch intern backend project'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Caleb Hamilton", email = "fyssioncodes@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+  "aiohttp~=3.11",
+  "asqlite~=2.0",
+  "rich~=13.6",
+]
+
+[project.urls]
+Documentation = "https://github.com/Fyssion/fetch-backend#readme"
+Issues = "https://github.com/Fyssion/fetch-backend/issues"
+Source = "https://github.com/Fyssion/fetch-backend"
+
+[tool.hatch.version]
+path = "fetch_backend.py"
+
+[tool.hatch.env]
+requires = [
+    "hatch-pip-compile"
+]
+
+[tool.hatch.envs.default]
+type = "pip-compile"
+pip-compile-constraint = "default"
+
+[tool.hatch.envs.default.scripts]
+start = "python fetch_backend.py"
+
+[tool.hatch.envs.test]
+dependencies = [
+    "coverage[toml]",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-aiohttp",
+    "pytest-sugar",
+]
+[tool.hatch.envs.test.scripts]
+test = "pytest"
+lint = "pyright"
+cov = "pytest --cov=app"
+
+[tool.hatch.envs.style]
+detached = true
+dependencies = [
+  "black",
+  "isort",
+]
+[tool.hatch.envs.style.scripts]
+check = [
+  "black --check --diff .",
+  "isort --check-only --diff .",
+]
+fmt = [
+  "isort .",
+  "black .",
+  "check",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.coverage.run]
+omit = [
+    "app/__main__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+]
+
+[tool.black]
+line-length = 100
+skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+combine_star = true
+line_length = 100
+
+[tool.pyright]
+pythonPlatform = "Linux"
+venvPath = ".hatch/test"
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+useLibraryCodeForTypes = true
+reportUnnecessaryTypeIgnoreComment = "warning"
+reportUnusedImport = "error"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

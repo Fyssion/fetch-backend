@@ -1,0 +1,63 @@
+1. Why did you choose the tools, libraries, and language you used for the coding exercise?
+
+I chose Python because it is the language I am most familiar in.
+
+For the web framework, I chose aiohttp because it is fast and efficient
+for creating both small and large scale backend servers. I also enjoy
+working with asynchronous code, and aiohttp is an asynchronous library,
+meaning it handles connections in parallel. Compared to popular Python
+web frameworks like Flask or Django, which run code synchronously,
+aiohttp can handle more connections simultaneously.
+
+For the dbms, I chose sqlite using an async driver called asqlite.
+See more about the tradeoffs of using sqlite in my second answer.
+
+For the tests, I chose to use pytest as it is the industry standard.
+I used pytest-asyncio to make pytest compatible with async code,
+and pytest-aiohttp to make it easy to test my web server.
+
+Finally, for my project manager, I used hatch. This is simply my
+preferred solution, and I have configured it to save all requirements
+to txt files for easy installation even without hatch.
+
+
+2. What are the advantages and disadvantages of your solution?
+
+The advantages of my solution are that it can be modified very easily
+to be scalable and can be refactored/modified with relative ease.
+Because I type-hinted the codebase, popular editors like VSCode (or any
+editor with type checking) will validate changes or additions to
+the codebase.
+
+My solution is also somewhat scalable for the reasons in the first answer,
+i.e. that it runs asynchronously and uses a fast underlying web framework.
+
+Of course, one disadvantage is that I used sqlite for the database.
+While sqlite is great for quick projects or to get a working prototype,
+it's not a scalable or resilient database solution. If I were to upgrade
+this project to run in a production environment, the first thing I would
+do is switch out sqlite for a dbms like postgresql.
+
+Another minor disadvantage is the code is in a single file. I figured
+this would be fine, as the project is relatively simple and short (
+being only a couple hundred lines), but if it were expanded, I would
+refactor the code into a Python module with multiple files/modules.
+
+
+3. What has been a favorite school/personal project thus far? What about it that challenged you?
+
+My favorite project was an instant messenger I created in my free time
+during high school. This was my first large-scale web project, and it
+challenged and stretched me in many ways. While I had created simple
+web servers in Python before, for this project I had to learn how to
+organize my code in a DRY, easy-to-understand way. I also had to learn
+how to design and implement a frontend. I decided to use React initially,
+but eventually began migrating to a Rust frontend compiled to WASM.
+
+Besides writing the frontend and backend, I also learned how to write a
+comprehensive test suite, write, build, and deploy Docker images, and
+use automated CI/CD systems like GitHub actions.
+
+As you can imagine, this was all very overwhelming at first, but I
+learned how to step back and approach new challenges one step at a
+time.

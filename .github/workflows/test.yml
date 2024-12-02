@@ -1,0 +1,32 @@
+# Adapted from one of my other projects:
+# https://github.com/Fyssion/zupplin/blob/main/.github/workflows/helium_test.yml
+
+name: "test"
+
+on:
+  push:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install hatch
+        run: |
+          pip install hatch
+          hatch config set dirs.env.virtual .hatch
+
+      - name: Install dependencies
+        run: hatch env create test
+
+      - name: Run tests
+        run: hatch run test:test
